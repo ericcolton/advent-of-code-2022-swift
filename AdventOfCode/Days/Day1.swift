@@ -15,22 +15,16 @@ final class Day1: Day {
   
   func buildAndSortElfs (_ input: String) throws -> [Int]
   {
-    var elfs : [Int] = []
-    var elf = 0
-    for i in input.split(separator: "\n", omittingEmptySubsequences: false) {
-      if let i = Int(i) {
-        elf += i
-      } else if i == "" {
-        elfs.append(elf)
-        elf = 0
-      } else {
-        throw ValidationError.unexpectedLine
-      }
-    }
-    if elf > 0 {
-      elfs.append(elf)
-    }
-    return elfs.sorted()
+    let newArray: [Int] = [0]
+    let elfs = input.split(separator: "\n", omittingEmptySubsequences: false)
+    return elfs
+      .reduce(into: newArray) { (newArray, l) in
+        if l == "" {
+          newArray.append(0)
+        } else {
+          newArray[newArray.endIndex-1] += Int(l)!
+        }
+      }.sorted()
   }
   
     func part1(_ input: String) -> CustomStringConvertible {
