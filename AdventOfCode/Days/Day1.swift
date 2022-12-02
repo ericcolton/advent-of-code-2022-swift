@@ -9,7 +9,7 @@ import Foundation
 //@available(macOS 13.0, *)
 final class Day1: Day {
   
-  func buildAndSortElfs (_ input: String) -> [Int]
+  func buildAndSortElfs(_ input: String) -> [Int]
   {
     return input.components(separatedBy: "\n\n")
       .map() {
