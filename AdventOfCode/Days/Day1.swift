@@ -6,32 +6,28 @@
 import Algorithms
 import Foundation
 
+//@available(macOS 13.0, *)
 final class Day1: Day {
   
-  enum ValidationError: Error {
-    case unexpectedLine
-  }
-  
-  
-  func buildAndSortElfs (_ input: String) throws -> [Int]
+  func buildAndSortElfs (_ input: String) -> [Int]
   {
-    let newArray: [Int] = [0]
-    let elfs = input.split(separator: "\n", omittingEmptySubsequences: false)
-    return elfs
-      .reduce(into: newArray) { (newArray, l) in
-        if l == "" {
-          newArray.append(0)
-        } else {
-          newArray[newArray.endIndex-1] += Int(l)!
-        }
+    return input.components(separatedBy: "\n\n")
+      .map() {
+        $0.components(separatedBy: "\n")
+          .map() { Int($0)! }
+          .reduce(0, +)
       }.sorted()
   }
   
     func part1(_ input: String) -> CustomStringConvertible {
-      return try! buildAndSortElfs(input).last!
+      let part1 = buildAndSortElfs(input).last!
+      assert(part1 == 70116)
+      return part1
     }
 
     func part2(_ input: String) -> CustomStringConvertible {
-      return try! buildAndSortElfs(input).suffix(3).reduce(0, +)
+      let part2 = buildAndSortElfs(input).suffix(3).reduce(0, +)
+      assert (part2 == 206582)
+      return part2
     }
 }
